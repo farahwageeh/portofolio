@@ -12,14 +12,27 @@
         }
 
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --accent-color: #3b82f6;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --background: #ffffff;
-            --surface: #f8fafc;
-            --border: #e5e7eb;
+            --primary-color: #03346e;
+            --secondary-color: #021526;
+            --accent-color: #6eacda;
+            --light-accent: #e2e2b6;
+            --text-primary: #021526;
+            --text-secondary: #03346e;
+            --background: #e2e2b6;
+            --surface: #ffffff;
+            --border: #6eacda;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #6eacda;
+            --secondary-color: #e2e2b6;
+            --accent-color: #03346e;
+            --light-accent: #6eacda;
+            --text-primary: #e2e2b6;
+            --text-secondary: #6eacda;
+            --background: #021526;
+            --surface: #03346e;
+            --border: #03346e;
         }
 
         html {
@@ -31,6 +44,7 @@
             line-height: 1.6;
             color: var(--text-primary);
             background-color: var(--background);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Header & Navigation */
@@ -38,11 +52,15 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(226, 226, 182, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
             transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] .header {
+            background: rgba(2, 21, 38, 0.95);
         }
 
         .nav {
@@ -77,6 +95,26 @@
             color: var(--primary-color);
         }
 
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-color);
+            color: var(--background);
+        }
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -108,22 +146,40 @@
             max-width: 600px;
         }
 
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         .cta-button {
             display: inline-block;
             background: var(--primary-color);
-            color: white;
+            color: var(--light-accent);
             padding: 1rem 2rem;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 4px 15px rgba(3, 52, 110, 0.3);
         }
 
         .cta-button:hover {
             background: var(--secondary-color);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 8px 25px rgba(3, 52, 110, 0.4);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--primary-color);
+            color: var(--light-accent);
         }
 
         /* Sections */
@@ -206,11 +262,15 @@
 
         .skill-tag {
             background: var(--accent-color);
-            color: white;
+            color: var(--light-accent);
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: 500;
+        }
+
+        [data-theme="dark"] .skill-tag {
+            color: var(--background);
         }
 
         /* Experience & Projects */
@@ -360,7 +420,7 @@
 
         .submit-btn {
             background: var(--primary-color);
-            color: white;
+            color: var(--light-accent);
             padding: 1rem 2rem;
             border: none;
             border-radius: 10px;
@@ -390,7 +450,7 @@
             width: 50px;
             height: 50px;
             background: var(--primary-color);
-            color: white;
+            color: var(--light-accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -420,14 +480,14 @@
 
         .social-link:hover {
             background: var(--primary-color);
-            color: white;
+            color: var(--light-accent);
             transform: translateY(-3px);
         }
 
         /* Footer */
         .footer {
-            background: var(--text-primary);
-            color: white;
+            background: var(--secondary-color);
+            color: var(--light-accent);
             text-align: center;
             padding: 2rem;
         }
@@ -440,7 +500,7 @@
         }
 
         .footer-links a {
-            color: white;
+            color: var(--light-accent);
             text-decoration: none;
             transition: color 0.3s ease;
         }
@@ -496,6 +556,7 @@
                 <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
         </nav>
     </header>
 
@@ -505,7 +566,10 @@
             <h1>Farah Wageeh</h1>
             <h2>Flutter Developer</h2>
             <p>Dynamic Computer Science graduate with strong expertise in Flutter mobile app development. Passionate about creating innovative cross-platform solutions.</p>
-            <a href="#contact" class="cta-button">Get In Touch</a>
+            <div class="hero-buttons">
+                <a href="#contact" class="cta-button">Get In Touch</a>
+                <a href="#" class="cta-button secondary" onclick="downloadCV()">Download CV</a>
+            </div>
         </div>
     </section>
 
@@ -726,14 +790,58 @@
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.querySelector('.header');
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            
             if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                if (isDark) {
+                    header.style.background = 'rgba(2, 21, 38, 0.98)';
+                } else {
+                    header.style.background = 'rgba(226, 226, 182, 0.98)';
+                }
                 header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
             } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                if (isDark) {
+                    header.style.background = 'rgba(2, 21, 38, 0.95)';
+                } else {
+                    header.style.background = 'rgba(226, 226, 182, 0.95)';
+                }
                 header.style.boxShadow = 'none';
             }
         });
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            const themeButton = document.querySelector('.theme-toggle');
+            
+            html.setAttribute('data-theme', newTheme);
+            themeButton.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            
+            // Save theme preference
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const themeButton = document.querySelector('.theme-toggle');
+            
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            themeButton.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Download CV function
+        function downloadCV() {
+            // You can replace this with an actual CV file URL
+            alert('CV download will be available soon! Please contact me directly for now.');
+            // For actual implementation, use:
+            // const link = document.createElement('a');
+            // link.href = 'path/to/your/cv.pdf';
+            // link.download = 'Farah_Wageeh_CV.pdf';
+            // link.click();
+        }
 
         // Contact form handling
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
