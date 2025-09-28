@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farah Wageeh - Flutter Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --border: #e5e7eb;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background);
+        }
+
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .hero-content h2 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .cta-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-photo {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Skills Section */
+        .skills {
+            background: var(--surface);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Experience & Projects */
+        .experience-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateX(5px);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .experience-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .experience-company {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .experience-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .experience-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .project-links {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            background: var(--surface);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Education */
+        .education {
+            background: var(--surface);
+        }
+
+        .education-item {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .education-degree {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-school {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Contact */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--surface);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-primary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .nav {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">Farah W.</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Farah Wageeh</h1>
+            <h2>Flutter Developer</h2>
+            <p>Dynamic Computer Science graduate with strong expertise in Flutter mobile app development. Passionate about creating innovative cross-platform solutions.</p>
+            <a href="#contact" class="cta-button">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-photo">
+                👩‍💻
+            </div>
+            <div class="about-text">
+                <p>I'm a passionate Flutter developer with a strong foundation in mobile application development. Currently participating in the Digital Egypt Pioneers Initiative (DEPI) Flutter Track, I'm dedicated to creating high-quality, user-friendly mobile applications.</p>
+                <p>With expertise in cross-platform development using Flutter and Dart, I enjoy solving complex problems and delivering projects that make a real impact. My goal is to contribute creativity and technical skills to forward-thinking teams while continuously growing as a developer.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section skills">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Technical Skills</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Flutter</span>
+                    <span class="skill-tag">Dart</span>
+                    <span class="skill-tag">Firebase</span>
+                    <span class="skill-tag">REST API</span>
+                    <span class="skill-tag">Bloc & Cubit</span>
+                    <span class="skill-tag">Git & GitHub</span>
+                    <span class="skill-tag">UI Design</span>
+                    <span class="skill-tag">Debugging</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3>Soft Skills</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Teamwork</span>
+                    <span class="skill-tag">Communication</span>
+                    <span class="skill-tag">Problem Solving</span>
+                    <span class="skill-tag">Time Management</span>
+                    <span class="skill-tag">Adaptability</span>
+                    <span class="skill-tag">Attention to Detail</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Projects Section -->
+    <section id="experience" class="section">
+        <h2 class="section-title">Experience & Projects</h2>
+        <div class="experience-grid">
+            <div class="experience-card">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">Flutter Developer</div>
+                        <div class="experience-company">Digital Egypt Pioneers Initiative (DEPI)</div>
+                    </div>
+                    <div class="experience-date">July 2025 - Present</div>
+                </div>
+                <div class="experience-description">
+                    Participating in a government-sponsored program focused on Flutter mobile application development and soft skills enhancement. Learning cross-platform app development with Flutter & Dart, UI/UX design principles, and state management.
+                </div>
+            </div>
+            
+            <div class="experience-card">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">Tasky App</div>
+                        <div class="experience-company">Personal Project</div>
+                    </div>
+                    <div class="experience-date">July 2025 - Sept 2025</div>
+                </div>
+                <div class="experience-description">
+                    A mobile application built with Flutter for managing tasks efficiently. Features include task creation, updates, and reminders with a clean and user-friendly interface.
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link">GitHub</a>
+                    <a href="#" class="project-link">Demo</a>
+                </div>
+            </div>
+            
+            <div class="experience-card">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">Smart College App</div>
+                        <div class="experience-company">University Project</div>
+                    </div>
+                    <div class="experience-date">Oct 2024 - May 2025</div>
+                </div>
+                <div class="experience-description">
+                    Developed a mobile application using Flutter that provides services for students and graduates. Features include student & alumni services and complaint submission system.
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link">GitHub</a>
+                    <a href="#" class="project-link">Demo</a>
+                </div>
+            </div>
+            
+            <div class="experience-card">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">Islamic App</div>
+                        <div class="experience-company">Personal Project</div>
+                    </div>
+                    <div class="experience-date">Jan 2024 - May 2024</div>
+                </div>
+                <div class="experience-description">
+                    An application that provides Quran, Hadith, Adhkar, prayer times, and Tasbeeh. Integrated with APIs and built using Flutter for cross-platform support.
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link">GitHub</a>
+                    <a href="#" class="project-link">Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section education">
+        <h2 class="section-title">Education & Certificates</h2>
+        <div class="education-item">
+            <div class="education-degree">Bachelor's Degree in Computer Science</div>
+            <div class="education-school">Faculty of Computers and Information Technology, Damanhour University</div>
+            <div class="education-date">September 2021 - June 2025</div>
+        </div>
+        <div class="education-item">
+            <div class="education-degree">Flutter Diploma Programming</div>
+            <div class="education-school">Easy Learn Academy</div>
+            <div class="education-date">2025</div>
+        </div>
+        <div class="education-item">
+            <div class="education-degree">Certificate in Developing Mobile Applications using Flutter</div>
+            <div class="education-school">Information Technology Institute (ITI)</div>
+            <div class="education-date">2025</div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">Contact Me</h2>
+        <div class="contact-content">
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div>
+                        <h4>Email</h4>
+                        <p>farahwaeh@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+201095478003</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <h4>Location</h4>
+                        <p>Cairo, Egypt</p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/farahwageeh" class="social-link">💼</a>
+                    <a href="https://github.com/farahwageeh" class="social-link">🐱</a>
+                    <a href="mailto:farahwaeh@gmail.com" class="social-link">📧</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <p>&copy; 2025 Farah Wageeh. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Contact form handling
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            this.reset();
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
